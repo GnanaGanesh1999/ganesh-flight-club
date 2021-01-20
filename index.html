@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Ganesh's Flight Club</title>
+
+    <link
+    rel="icon"
+    type="image/png"
+    href="https://www.google.com/s2/favicons?domain=gnanaganesh-resume.web.app"
+  />
+    <!-- Font Icon -->
+    <link rel="stylesheet" href="fonts/material-icon/css/material-design-iconic-font.min.css">
+
+    <!-- Main css -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <div class="main">
+
+        <div class="container">
+            <div  class="appointment-form" id="appointment-form" >
+                <h3>Welcome to </h3>
+                <h1>Ganesh's Flight Club</h1>
+                <h2>Sign up for Cheap Flight updates!</h2> 
+                <div class="form-group-1">
+                    <input type="text" name="name" id="name" placeholder="Enter Your Name" required />
+                    <input type="email" name="email" id="email" placeholder="Enter Email Address" required />
+                    <input type="email" name="email" id="re-email"  placeholder="Re Enter Email Address" required />
+                </div>
+                <div class="form-submit">
+                    <input type="button" name="submit" id="submit" class="submit" value="SIGN UP" onclick="post_data_to_sheety()" />
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- JS -->
+    <script>
+        function post_data_to_sheety() {
+            let url = 'https://api.sheety.co/63939603f1c2ca2b577fd8f050cd4c71/flightDeals/users';
+            const nameElement = document.getElementById("name");
+            const emailElement = document.getElementById("email");
+            const re_emailElement = document.getElementById("re-email");
+            name = nameElement.value;
+            email =  emailElement.value
+            console.log(name + " |  " + email);
+            
+            let body = {
+                "user": {
+                    "name": name,
+                    "email": email,
+                }
+            }
+            fetch(url, {
+                method: 'POST', 
+                headers: {"Content-type": "application/json;charset=UTF-8"},
+                body: JSON.stringify(body)
+            })
+            .then((response) => response.json())
+            .then(json => {
+                // Do something with object
+                console.log(json.user);
+            });
+            nameElement.value = "";
+            emailElement.value = "";
+            re_emailElement.value = "";
+            return true;
+        }
+    </script>
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="js/main.js"></script>
+</body><!-- This templates was made by Colorlib (https://colorlib.com) -->
+</html>
